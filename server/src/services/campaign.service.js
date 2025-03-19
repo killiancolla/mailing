@@ -1,12 +1,12 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAllCampaigns = async () => {
+export const getAllCampaigns = async () => {
     return await prisma.campagne.findMany();
 };
 
-const getCampaignByIdService = async (id) => {
+export const getCampaignByIdService = async (id) => {
     return await prisma.campagne.findUnique({
         where: {
             id: parseInt(id)
@@ -19,7 +19,7 @@ const getCampaignByIdService = async (id) => {
     });
 };
 
-const createCampaign = async (nom) => {
+export const createCampaign = async (nom) => {
     try {
         const newCampaign = await prisma.campagne.create({
             data: {
@@ -32,7 +32,7 @@ const createCampaign = async (nom) => {
     }
 };
 
-const updateCampaignService = async (id, data) => {
+export const updateCampaignService = async (id, data) => {
     try {
         const newCampaign = await prisma.campagne.findUnique({
             where: {
@@ -54,5 +54,3 @@ const updateCampaignService = async (id, data) => {
         throw new Error('Erreur lors de la modification de la campagne');
     }
 };
-
-module.exports = { getAllCampaigns, createCampaign, getCampaignByIdService, updateCampaignService };

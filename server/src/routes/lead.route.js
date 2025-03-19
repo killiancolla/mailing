@@ -1,5 +1,5 @@
-const express = require("express");
-const { getAllLeadsByCampaignController, getAllLeadsController, addLeadController } = require("../controllers/lead.controller");
+import express from "express"
+import { getAllLeadsByCampaignController, getAllLeadsController, addLeadController } from "../controllers/lead.controller.js";
 
 const router = express.Router();
 
@@ -7,4 +7,4 @@ router.get("/", getAllLeadsController);
 router.post("/", addLeadController);
 router.get("/:id", getAllLeadsByCampaignController)
 
-module.exports = router;
+export default router;

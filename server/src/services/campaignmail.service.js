@@ -1,8 +1,8 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const createCampaignMailService = async (campagne_id, step, subject, body) => {
+export const createCampaignMailService = async (campagne_id, step, subject, body) => {
     try {
         const newCampaign = await prisma.campagneMail.create({
             data: {
@@ -14,5 +14,3 @@ const createCampaignMailService = async (campagne_id, step, subject, body) => {
         throw new Error('Erreur lors de la création de la campagne');
     }
 };
-
-module.exports = { createCampaignMailService };

@@ -1,5 +1,6 @@
-const express = require("express");
-const { getCampaigns, addCampaign, getCampaignByIdController, updateCampaignController } = require("../controllers/campaign.controller");
+import express from "express"
+
+import { getCampaigns, addCampaign, getCampaignByIdController, updateCampaignController } from "../controllers/campaign.controller.js";
 
 const router = express.Router();
 
@@ -8,4 +9,4 @@ router.get("/:id", getCampaignByIdController)
 router.post("/", addCampaign);
 router.put("/:id", updateCampaignController)
 
-module.exports = router;
+export default router; 

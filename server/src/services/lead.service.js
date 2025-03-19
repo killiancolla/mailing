@@ -1,12 +1,12 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAllLeadsService = async () => {
+export const getAllLeadsService = async () => {
     return await prisma.lead.findMany();
 };
 
-const getAllLeadsByCampaignService = async (id) => {
+export const getAllLeadsByCampaignService = async (id) => {
     return await prisma.lead.findMany({
         where: {
             campagne_id: parseInt(id)
@@ -14,7 +14,7 @@ const getAllLeadsByCampaignService = async (id) => {
     });
 };
 
-const addLeadService = async (email, prenom, nom, campagne_id) => {
+export const addLeadService = async (email, prenom, nom, campagne_id) => {
     try {
         const newLead = await prisma.lead.create({
             data: {
@@ -27,5 +27,3 @@ const addLeadService = async (email, prenom, nom, campagne_id) => {
         throw new Error('Erreur lors de la créatiion du lead')
     }
 };
-
-module.exports = { getAllLeadsByCampaignService, getAllLeadsService, addLeadService }

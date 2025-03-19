@@ -1,6 +1,6 @@
-const { getAllSettings } = require("../services/setting.service")
+import { getAllSettings } from "../services/setting.service.js"
 
-const getSettings = async (req, res) => {
+export const getSettings = async (req, res) => {
     try {
         const settings = await getAllSettings();
         res.json(settings);
@@ -8,5 +8,3 @@ const getSettings = async (req, res) => {
         res.status(500).json({ error: "Erreur lors de la récupération des paramètres" });
     }
 };
-
-module.exports = { getSettings };

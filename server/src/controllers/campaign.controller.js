@@ -1,6 +1,6 @@
-const { getAllCampaigns, createCampaign, getCampaignByIdService, updateCampaignService } = require("../services/campaign.service");
+import { getAllCampaigns, createCampaign, getCampaignByIdService, updateCampaignService } from "../services/campaign.service.js";
 
-const getCampaigns = async (req, res) => {
+export const getCampaigns = async (req, res) => {
     try {
         const campaigns = await getAllCampaigns();
         res.json(campaigns);
@@ -9,7 +9,7 @@ const getCampaigns = async (req, res) => {
     }
 };
 
-const getCampaignByIdController = async (req, res) => {
+export const getCampaignByIdController = async (req, res) => {
     try {
         const { id } = req.params;
         const campaign = await getCampaignByIdService(id);
@@ -20,7 +20,7 @@ const getCampaignByIdController = async (req, res) => {
     }
 };
 
-const addCampaign = async (req, res) => {
+export const addCampaign = async (req, res) => {
     try {
         const { nom } = req.body;
         if (!nom) {
@@ -34,7 +34,7 @@ const addCampaign = async (req, res) => {
     }
 }
 
-const updateCampaignController = async (req, res) => {
+export const updateCampaignController = async (req, res) => {
     try {
         const { id } = req.params;
         const data = req.body
@@ -50,5 +50,3 @@ const updateCampaignController = async (req, res) => {
         res.status(500).json({ error: "Erreur lors de la modification de la campagne" })
     }
 }
-
-module.exports = { getCampaigns, addCampaign, getCampaignByIdController, updateCampaignController };

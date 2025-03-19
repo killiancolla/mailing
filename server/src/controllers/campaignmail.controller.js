@@ -1,6 +1,6 @@
-const { createCampaignMailService } = require("../services/campaignmail.service");
+import { createCampaignMailService } from "../services/campaignmail.service.js";
 
-const createCampaignMailController = async (req, res) => {
+export const createCampaignMailController = async (req, res) => {
     try {
         const { campagne_id, step, subject, body } = req.body;
         if (!campagne_id || !step || !subject || !body) {
@@ -13,5 +13,3 @@ const createCampaignMailController = async (req, res) => {
         res.status(500).json({ error: "Erreur lors de la récuperation des campagnes" })
     }
 }
-
-module.exports = { createCampaignMailController };

@@ -1,8 +1,8 @@
-const express = require("express");
-const { track_open } = require("../controllers/mail.controller");
+import express from "express"
+import { track_open } from "../controllers/mail.controller.js";
 
 const router = express.Router();
 
 router.get("/track-open/:mail_id", track_open)
 
-module.exports = router;
+export default router;

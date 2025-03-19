@@ -1,6 +1,6 @@
-const { updateMail } = require("../services/mail.service");
+import { updateMail } from "../services/mail.service.js";
 
-const track_open = async (req, res) => {
+export const track_open = async (req, res) => {
     try {
         const { mail_id } = req.params;
         if (!mail_id) {
@@ -13,5 +13,3 @@ const track_open = async (req, res) => {
         res.status(500).json({ error: "Erreur lors de la modification du mail" })
     }
 }
-
-module.exports = { track_open };

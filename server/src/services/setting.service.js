@@ -1,9 +1,7 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAllSettings = async () => {
+export const getAllSettings = async () => {
     return await prisma.setting.findMany();
 };
-
-module.exports = { getAllSettings };

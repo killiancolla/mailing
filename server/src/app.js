@@ -1,11 +1,11 @@
-const express = require("express");
-const cors = require("cors")
+import express from "express"
+import cors from "cors"
 
-const campaignRoutes = require("./routes/campaign.route");
-const settingRoutes = require("./routes/setting.route");
-const leadRoutes = require("./routes/lead.route")
-const campaignMailRoutes = require("./routes/campaignmail.route")
-const mailRoutes = require("./routes/mail.route")
+import campaignRoutes from "./routes/campaign.route.js";
+import settingRoutes from "./routes/setting.route.js";
+import leadRoutes from "./routes/lead.route.js"
+import campaignMailRoutes from "./routes/campaignmail.route.js"
+import mailRoutes from "./routes/mail.route.js"
 
 const app = express();
 
@@ -17,4 +17,4 @@ app.use("/leads", leadRoutes);
 app.use("/campagnes-mail", campaignMailRoutes);
 app.use("/mail", mailRoutes);
 
-module.exports = app;
+export default app;
