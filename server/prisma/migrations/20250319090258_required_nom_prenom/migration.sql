@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE `Lead` MODIFY `prenom` VARCHAR(191) NULL,
+    MODIFY `nom` VARCHAR(191) NULL;

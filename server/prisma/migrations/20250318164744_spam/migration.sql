@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Mail` MODIFY `spam` INTEGER NOT NULL DEFAULT 0;

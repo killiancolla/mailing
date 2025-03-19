@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id          Int      @id @default(autoincrement())
+  campagne_id Int
+  email       String
+  prenom      String?
+  nom         String?
+  website     String?
+  ville       String?
+  statut      Int      @default(1)
+  createdAt   DateTime @default(now())
+  mails       Mail[]
+
+  campagne Campagne @relation(fields: [campagne_id], references: [id], onDelete: Cascade)
+}
+
+model Setting {
+  id          Int  @id @default(autoincrement())
+  start_hour  Int
+  end_hour    Int
+  days_active Json
+  frequency   Int
+}
+
+model Mail {
+  id               Int       @id @default(autoincrement())
+  lead_id          Int
+  campagne_id      Int
+  campagne_mail_id Int       @default(1)
+  email            String
+  subject          String
+  body             String    @db.Text
+  status           String
+  sent_at          DateTime  @default(now())
+  opened_at        DateTime?
+  spam             Int       @default(0)
+
+  lead          Lead         @relation(fields: [lead_id], references: [id], onDelete: Cascade)
+  campagne      Campagne     @relation(fields: [campagne_id], references: [id], onDelete: Cascade)
+  campagne_mail CampagneMail @relation(fields: [campagne_mail_id], references: [id], onDelete: Cascade)
+}
+
+model Campagne {
+  id           Int            @id @default(autoincrement())
+  nom          String
+  status       Int            @default(0)
+  created_at   DateTime       @default(now())
+  Lead         Lead[]
+  CampagneMail CampagneMail[]
+  Mail         Mail[]
+}
+
+model CampagneMail {
+  id          Int    @id @default(autoincrement())
+  campagne_id Int
+  step        Int
+  subject     String
+  body        String @db.Text
+
+  campagne Campagne @relation(fields: [campagne_id], references: [id], onDelete: Cascade)
+  Mail     Mail[]
+}
