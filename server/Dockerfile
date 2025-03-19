@@ -9,10 +9,11 @@ COPY package.json package-lock.json ./
 
 # Installe les dépendances
 RUN npm install --production
-RUN npx prisma generate
 
 # Copie le reste du projet
 COPY . .
+
+RUN npx prisma generate
 
 # Expose le port 5000
 EXPOSE 5000
