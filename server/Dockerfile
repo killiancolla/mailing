@@ -14,6 +14,7 @@ RUN npm install --production
 COPY . .
 
 RUN npx prisma generate
+RUN npx prisma migrate deploy
 
 # Expose le port 5000
 EXPOSE 5000
