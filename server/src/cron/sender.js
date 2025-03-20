@@ -107,6 +107,7 @@ const sendEmailsAutomatically = async () => {
             if (nextStepMail) {
 
                 await sendEmail(lead, nextStepMail);
+                return
 
             } else {
                 console.log("Aucune étape suivante pour le lead " + lead.id);

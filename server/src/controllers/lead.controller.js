@@ -23,13 +23,13 @@ export const getAllLeadsByCampaignController = async (req, res) => {
 
 export const addLeadController = async (req, res) => {
     try {
-        const { email, prenom, nom, campagne_id } = req.body
+        const { email, prenom, nom, ville, website, campagne_id } = req.body
 
         if (!email || !campagne_id) {
             res.status(400).json({ error: "Tous les champs sont requis." })
         }
 
-        const newLeads = await addLeadService(email, prenom, nom, campagne_id);
+        const newLeads = await addLeadService(email, prenom, nom, ville, website, campagne_id);
         res.status(201).json(newLeads)
     } catch (error) {
         console.error(error)

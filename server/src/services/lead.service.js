@@ -14,11 +14,11 @@ export const getAllLeadsByCampaignService = async (id) => {
     });
 };
 
-export const addLeadService = async (email, prenom, nom, campagne_id) => {
+export const addLeadService = async (email, prenom, nom, ville, website, campagne_id) => {
     try {
         const newLead = await prisma.lead.create({
             data: {
-                email, prenom, nom, campagne_id: parseInt(campagne_id)
+                email, prenom, nom, ville, website, campagne_id: parseInt(campagne_id)
             },
         });
         return newLead;
