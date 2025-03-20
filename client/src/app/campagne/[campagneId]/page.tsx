@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
-// @ts-expect-error
+// @ts-expect-error: Pas nécessaire
 import sanitizeHtml from "sanitize-html";
 
 const sanitizeOptions = {

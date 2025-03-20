@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import axios from "axios"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,26 +23,29 @@ export default function UnsubscribePage() {
     const [status, setStatus] = useState<UnsubscribeStatus>(UnsubscribeStatus.INITIAL)
     const [errorMessage, setErrorMessage] = useState<string>("")
 
-    async function handleUnsubscribe() {
-        setStatus(UnsubscribeStatus.LOADING)
+    const handleUnsubscribe = useCallback(() => {
+        const unsubscribe = async () => {
+            setStatus(UnsubscribeStatus.LOADING)
 
-        try {
-            await axios.put(`${process.env.NEXT_PUBLIC_BACK_URL}/leads/${leadId}`, {
-                statut: 0
-            })
+            try {
+                await axios.put(`${process.env.NEXT_PUBLIC_BACK_URL}/leads/${leadId}`, {
+                    statut: 0
+                })
 
-            setStatus(UnsubscribeStatus.SUCCESS)
-        } catch (error) {
-            console.error("Failed to unsubscribe:", error)
-            setStatus(UnsubscribeStatus.ERROR)
+                setStatus(UnsubscribeStatus.SUCCESS)
+            } catch (error) {
+                console.error("Failed to unsubscribe:", error)
+                setStatus(UnsubscribeStatus.ERROR)
 
-            if (axios.isAxiosError(error) && error.response) {
-                setErrorMessage(`Erreur ${error.response.status}: ${error.response.data.message || "Une erreur est survenue"}`)
-            } else {
-                setErrorMessage("Une erreur inattendue est survenue. Veuillez réessayer plus tard.")
+                if (axios.isAxiosError(error) && error.response) {
+                    setErrorMessage(`Erreur ${error.response.status}: ${error.response.data.message || "Une erreur est survenue"}`)
+                } else {
+                    setErrorMessage("Une erreur inattendue est survenue. Veuillez réessayer plus tard.")
+                }
             }
         }
-    }
+        unsubscribe()
+    }, [leadId])
 
     useEffect(() => {
         handleUnsubscribe();
