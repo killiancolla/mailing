@@ -59,11 +59,16 @@ const sendEmailsAutomatically = async () => {
                 const lastStepMailDate = lastStepMail.sent_at;
                 const diffInDays = (now - lastStepMailDate) / (1000 * 3600 * 24);
 
+                const lastStep = await prisma.campagneMail.findFirst({
+                    where: { id: lastStepMail.campagne_mail_id },
+                    select: { step: true }
+                })
+
                 if (diffInDays >= 3) {
                     nextStepMail = await prisma.campagneMail.findFirst({
                         where: {
                             campagne_id: campagneId,
-                            step: lastStepMail.campagne_mail_id + 1,
+                            step: lastStep.step + 1,
                         },
                     });
                 }
@@ -107,7 +112,6 @@ const sendEmailsAutomatically = async () => {
             if (nextStepMail) {
 
                 await sendEmail(lead, nextStepMail);
-                return
 
             } else {
                 console.log("Aucune étape suivante pour le lead " + lead.id);
