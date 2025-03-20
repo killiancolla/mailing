@@ -66,7 +66,7 @@ export async function sendEmail(lead, mail) {
         // );
         // const mailId = result[0].insertId;
 
-        const trackingPixel = `<img src="http://localhost:5000/mail/track-open/${mailId}" width="1" height="1" />`;
+        const trackingPixel = `<img src="${NEXT_PUBLIC_BACK_URL}/mail/track-open/${mailId}" width="1" height="1" />`;
         const finalBody = `${body} ${trackingPixel}`;
 
         const mailOptions = {
