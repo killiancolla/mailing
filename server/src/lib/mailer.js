@@ -65,7 +65,8 @@ export async function sendEmail(lead, mail) {
         // const mailId = result[0].insertId;
 
         const trackingPixel = `<img src="${process.env.BACK_URL}/mail/track-open/${mailId}" width="1" height="1" />`;
-        const finalBody = `${body} ${trackingPixel}`;
+        const unsubscribe = `<br><br><br>Si vous ne souhaitez plus recevoir de mails de ma part : <a href="${process.env.FRONT_URL}/unsubscribe/${lead.id}">se désinscrire</a>`
+        const finalBody = `${body} ${trackingPixel} ${unsubscribe}`;
 
         const mailOptions = {
             from: '"Killian Colla" <contact@killian-colla.com>',
