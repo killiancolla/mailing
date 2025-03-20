@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
-// @ts-ignore
+// @ts-expect-error
 import sanitizeHtml from "sanitize-html";
 
 const sanitizeOptions = {
@@ -412,8 +412,8 @@ export default function Campagne() {
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[600px]">
                                     <DialogHeader>
-                                        <DialogTitle>Nouvelle étape d'email</DialogTitle>
-                                        <DialogDescription>Créez une nouvelle étape pour votre séquence d'emails.</DialogDescription>
+                                        <DialogTitle>Nouvelle étape d&apos;email</DialogTitle>
+                                        <DialogDescription>Créez une nouvelle étape pour votre séquence d&apos;emails.</DialogDescription>
                                     </DialogHeader>
 
                                     <form onSubmit={handleSubmitMail(onSubmitMail)} className="grid gap-4 py-4">
@@ -569,7 +569,6 @@ export default function Campagne() {
                         <Card>
                             <CardContent className="">
                                 <ScrollArea className="max-h-[300px]">
-                                    {/* <div className="whitespace-pre-line pr-4">{selectedMail?.body}</div> */}
                                     <div className="whitespace-pre-line pr-4" dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedMail?.body || "", sanitizeOptions) }} />
                                 </ScrollArea>
                             </CardContent>
