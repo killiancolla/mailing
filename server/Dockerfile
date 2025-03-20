@@ -17,11 +17,13 @@ COPY . .
 
 RUN npx prisma generate
 
-RUN echo "*/5 * * * * /usr/local/bin/node /app/server/src/cron/sender.js >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job \
+RUN echo "*/5 * * * * /usr/local/bin/node /app/src/cron/sender.js >> /var/log/cron.log 2>&1" > /etc/cron.d/my-cron-job \
     && chmod 0644 /etc/cron.d/my-cron-job \
     && crontab /etc/cron.d/my-cron-job
 
 RUN touch /var/log/cron.log
+
+RUN service cron start
 
 # Expose le port 5000
 EXPOSE 5000
