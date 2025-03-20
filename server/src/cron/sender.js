@@ -5,66 +5,6 @@ const prisma = new PrismaClient();
 import { sendEmail } from "../lib/mailer.js";
 
 const sendEmailsAutomatically = async () => {
-    const settings = await prisma.setting.findFirst()
-    const { start_hour, end_hour, days_active, frequency } = settings;
-
-    const now = new Date();
-    const day = now.toLocaleString('en-us', { weekday: 'long' }).toLowerCase();
-    const days_active_tab = days_active.days_active;
-    const hour = now.getHours();
-
-    const campagneId = 11
-
-    const lastMail = await prisma.mail.findFirst({
-        where: {
-            campagne_id: campagneId
-        },
-        orderBy: {
-            sent_at: 'desc',
-        },
-        select: {
-            sent_at: true,
-        },
-    });
-
-    if (lastMail && lastMail.sent_at) {
-        const lastMailDate = lastMail.sent_at
-        const diffInMilliseconds = now - lastMailDate;
-        const diffInMinutes = diffInMilliseconds / (1000 * 60);
-
-        if (diffInMinutes < frequency) {
-            console.log("Le dernier mail a été envoyé il y a moins de " + frequency + " minutes")
-            return;
-        }
-    }
-
-    const lead = await prisma.lead.findFirst({
-        where: {
-            id: {
-                notIn: (
-                    await prisma.mail.findMany({
-                        select: { lead_id: true },
-                    })
-                ).map((mail) => mail.lead_id),
-            },
-            campagne_id: campagneId,
-        },
-        orderBy: {
-            created_at: 'asc',
-        },
-    });
-
-    if (lead) {
-
-        await sendEmail(lead);
-
-    } else {
-        console.log("Aucun lead en attente.");
-    }
-
-}
-
-const sendEmailsAutomatically2 = async () => {
     const settings = await prisma.setting.findFirst();
     const { start_hour, end_hour, days_active, frequency } = settings;
 
@@ -90,6 +30,7 @@ const sendEmailsAutomatically2 = async () => {
         const leads = await prisma.lead.findMany({
             where: {
                 campagne_id: campagneId,
+                statut: 1
             },
         });
 
@@ -175,7 +116,7 @@ const sendEmailsAutomatically2 = async () => {
 
 };
 
-sendEmailsAutomatically2().catch(e => {
+sendEmailsAutomatically().catch(e => {
     console.error(e);
     process.exit(1);
 })

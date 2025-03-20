@@ -35,11 +35,9 @@ export async function sendEmail(lead, mail) {
         return text;
     };
 
+
     const subject = applyConditions(mail.subject, lead).trim();
     const body = applyConditions(mail.body, lead).trim();
-
-    console.log(subject);
-    console.log(body);
 
     let mailId = "";
 
@@ -73,7 +71,7 @@ export async function sendEmail(lead, mail) {
             from: '"Killian Colla" <contact@killian-colla.com>',
             to: lead.email,
             subject: subject,
-            html: finalBody,
+            html: finalBody.replace(/\n/g, '<br>'),
         };
 
         await transporter.sendMail(mailOptions);

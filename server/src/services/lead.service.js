@@ -27,3 +27,26 @@ export const addLeadService = async (email, prenom, nom, campagne_id) => {
         throw new Error('Erreur lors de la créatiion du lead')
     }
 };
+
+export const updateLeadService = async (id, data) => {
+    try {
+        const newLead = await prisma.lead.findUnique({
+            where: {
+                id: parseInt(id)
+            }
+        });
+
+        if (!newLead)
+            return null;
+
+        return await prisma.lead.update({
+            where: {
+                id: parseInt(id)
+            },
+            data: data
+        });
+
+    } catch (error) {
+        throw new Error('Erreur lors de la modification du lead.');
+    }
+};

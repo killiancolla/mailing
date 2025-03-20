@@ -1,4 +1,4 @@
-import { getAllLeadsByCampaignService, getAllLeadsService, addLeadService } from "../services/lead.service.js"
+import { getAllLeadsByCampaignService, getAllLeadsService, addLeadService, updateLeadService } from "../services/lead.service.js"
 
 export const getAllLeadsController = async (req, res) => {
     try {
@@ -34,5 +34,22 @@ export const addLeadController = async (req, res) => {
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: error })
+    }
+}
+
+export const updateLeadController = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = req.body
+
+        if (Object.keys(data).length === 0) {
+            return res.status(400).json({ message: "Aucune donnée à mettre à jour." })
+        }
+
+        const updatedLead = await updateLeadService(id, data)
+
+        res.json(updatedLead)
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors de la modification du lead" })
     }
 }
