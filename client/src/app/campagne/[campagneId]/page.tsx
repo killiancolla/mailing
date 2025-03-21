@@ -162,8 +162,8 @@ export default function Campagne() {
     })
 
     const sortedEmailHistory = [...emailHistory].sort((a, b) => {
-        const dateA = a.status === "ouvert" && a.opened_at ? Number.parseInt(a.opened_at) : Number.parseInt(a.sent_at)
-        const dateB = b.status === "ouvert" && b.opened_at ? Number.parseInt(b.opened_at) : Number.parseInt(b.sent_at)
+        const dateA = a.status === "ouvert" && a.opened_at ? new Date(a.opened_at).getTime() : new Date(a.sent_at).getTime()
+        const dateB = b.status === "ouvert" && b.opened_at ? new Date(b.opened_at).getTime() : new Date(b.sent_at).getTime()
         return dateB - dateA
     })
 

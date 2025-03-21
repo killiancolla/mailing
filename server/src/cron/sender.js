@@ -25,6 +25,9 @@ const sendEmailsAutomatically = async () => {
     })
 
     for (const campagne of campaigns) {
+
+        let isRelance = false;
+
         const campagneId = campagne.id;
 
         const leads = await prisma.lead.findMany({
@@ -56,6 +59,8 @@ const sendEmailsAutomatically = async () => {
 
             let nextStepMail;
             if (lastStepMail && lastStepMail.sent_at) {
+                if (isRelance)
+                    continue;
                 const lastStepMailDate = lastStepMail.sent_at;
                 const diffInDays = (now - lastStepMailDate) / (1000 * 3600 * 24);
 
@@ -71,6 +76,7 @@ const sendEmailsAutomatically = async () => {
                             step: lastStep.step + 1,
                         },
                     });
+                    isRelance = true
                 }
             } else {
 
