@@ -74,7 +74,7 @@ export async function sendEmail(lead, mail) {
             subject: subject,
             html: finalBody.replace(/\n/g, '<br>'),
             headers: {
-                "List-Unsubscribe": `<${process.env.FRONT_URL}/unsubscribe/${lead.id}>, <mailto:unsubscribe@killian-colla.com?subject=unsubscribe>`,
+                "List-Unsubscribe": `<${process.env.FRONT_URL}/unsubscribe/${lead.id}>, <mailto:contact@killian-colla.com?subject=unsubscribe>`,
                 "List-Unsubscribe-Post": "List-Unsubscribe=One-Click"
             }
         };
