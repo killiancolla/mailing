@@ -73,6 +73,9 @@ export async function sendEmail(lead, mail) {
             to: lead.email,
             subject: subject,
             html: finalBody.replace(/\n/g, '<br>'),
+            headers: {
+                "List-Unsubscribe": `<${process.env.FRONT_URL}/unsubscribe/${lead.id}>`
+            }
         };
 
         await transporter.sendMail(mailOptions);
