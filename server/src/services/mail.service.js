@@ -20,7 +20,7 @@ export const updateMail = async (mailId, updates) => {
 
         const sentAt = new Date(mail.sent_at);
         const now = new Date();
-        const delayMilliseconds = 5000;
+        const delayMilliseconds = 15000;
 
         if ((now - sentAt) < delayMilliseconds) {
             return mail;
